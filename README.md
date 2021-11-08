@@ -41,11 +41,7 @@ Em seguida, conecte o seu Arduino em seu computador e realize a seguinte sequenc
 - Em seu Arduino IDE,  vá em Ferramentas>Gerenciar Bibliotecas.
 - Quando carregar a janela do Gerenciador de Bibliotecas, pesquise por "mpu6050" e clique para instalar "Adafruit MPU6050"
 ![alt text](https://lastminuteengineers.com/wp-content/uploads/arduino/Adafruit-MPU6050-Library-Installation.png)
-<<<<<<< Updated upstream
 - Ao finalizar a instalação da biblioteca e suas dependências e carregue o código para o seu Arduino!
-=======
-- Ao finalizar a instalação da biblioteca e suas dependências e carregue o código para o seu Arduino.
->>>>>>> Stashed changes
 
 > Verifique a porta do seu Arduino! Isto é bem importante para o prosseguimento do uso.
 
