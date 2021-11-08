@@ -58,7 +58,7 @@ void loop() {
   sensors_event_t a, g, temp; // Lê os eventos do sensor
   mpu.getEvent(&a, &g, &temp); //
   /* Printa os dados em uma linha serial */
-  Serial.println((String)a.acceleration.x + ";" + (String)a.acceleration.y + ";" + (String)a.acceleration.z + ";" + (String)temp.temperature + ";" + (String)g.gyro.x + ";" + (String)g.gyro.y + ";" + (String)g.gyro.z);
+  Serial.println((String)a.acceleration.x + ";" + (String)a.acceleration.y + ";" + (String)a.acceleration.z + ";" + (String)g.gyro.x + ";" + (String)g.gyro.y + ";" + (String)g.gyro.z);
   /*
     Caso necessite testar, tire este pedaço de código de comentário
     e comente a linha 61.

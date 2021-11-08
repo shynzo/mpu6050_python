@@ -14,15 +14,14 @@ import matplotlib.pyplot as plt
 from time import sleep
 from datetime import datetime
 
-#Inicialização das listas
-acelX = []
-acelY = []
-acelZ = []
-gyroX = []
-gyroY = []
-gyroZ = []
-
 def main(port):
+    #Inicialização das listas
+	acelX = np.array([])
+	acelY = np.array([])
+	acelZ = np.array([])
+	gyroX = np.array([])
+	gyroY = np.array([])
+	gyroZ = np.array([])
 	while True:
 		try:
 			ser = serial.Serial(serial_ports[int(port)], 115200,timeout=1) #Conectando ao Arduino no serial no baud 115200
@@ -48,11 +47,11 @@ def main(port):
 		"i.e.: Quanto menor o valor de g, mais sensível será a medição do acelerômetro")
 		command = (input("Escolha o intervalo de leitura (Recomendado +-8g):\n> "))
 		if command == '0':
-			ser.write(b'0') #ser.write é para enviar o comando via serial para o Arduino. Caso não esteja devidamente configurado no código .ino, haverá problemas.
+			ser.write('0\r'.encode()) #ser.write é para enviar o comando via serial para o Arduino. Caso não esteja devidamente configurado no código .ino, haverá problemas.
 			print('Escala definida em +-2g !')
 			break
 		elif command =='1':
-			ser.write(b'1')
+			ser.write('1\r'.encode())
 			print('Escala definida em +-4g !')
 			break
 		elif command == ('2'):
@@ -60,7 +59,7 @@ def main(port):
 			print('Escala definida em +-8g !')
 			break
 		elif command == ("3") :
-			ser.write(b'3')
+			ser.write('3\r'.encode())
 			print('Escala definida em +-16g !')
 			break
 		else:
@@ -75,18 +74,12 @@ def main(port):
 			try:
 				entrada = line.split(";") #Separação da string para adquirir os dados
 				print("AcX: {}m/s² | AcY: {}m/s² | AcZ: {}m/s² | Gx: {}°/s | Gy: {}°/s | Gz: {}°/s".format(entrada[0], entrada[1], entrada[2], entrada[3], entrada[4], entrada[5]))
-				AcX = np.float64(entrada[0]) #Formatação dos dados via numpy
-				AcY = np.float64(entrada[1])
-				AcZ = np.float64(entrada[2])
-				Gx = np.float64(entrada[3])
-				Gy = np.float64(entrada[4])
-				Gz = np.float64(entrada[5])
-				acelX.append(AcX) #Adicionando a lista para ser acrescentado no arquivo posteriormente
-				acelY.append(AcY)
-				acelZ.append(AcZ)
-				gyroX.append(Gx)
-				gyroY.append(Gy)
-				gyroZ.append(Gz)
+				acelX = np.append(acelX, np.float64(entrada[0])) #Adicionando a lista para ser acrescentado no arquivo posteriormente
+				acelY = np.append(acelY, np.float64(entrada[1]))
+				acelZ = np.append(acelZ, np.float64(entrada[2]))
+				gyroX = np.append(gyroX, np.float64(entrada[3]))
+				gyroY = np.append(gyroY, np.float64(entrada[4]))
+				gyroZ = np.append(gyroZ, np.float64(entrada[5]))
 			except Exception as e:
 				print(e)
 				pass
@@ -111,7 +104,7 @@ def main(port):
 			try:
 				x = np.vstack((acelX,acelY,acelZ,gyroX,gyroY,gyroZ))
 				with open(os.path.join('data', arquivo), "w") as f:
-					np.savetxt(f, x.transpose(), delimiter=';') #Salvando o arquivo
+					np.savetxt(f, x.transpose(), delimiter=';', fmt='%1.4f', header='AcX; AcY; AcZ; GyX; GyY; GyZ') #Salvando o arquivo
 			except Exception as e:
 				print("Ocorreu a seguinte exceção durante o salvamento do arquivo de dados:\n{}".format(e))
 			finally:
