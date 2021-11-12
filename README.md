@@ -68,6 +68,9 @@ GNU v3 2007
 
 **Free Software, Hell Yeah!**
 
+#Keywords: 
+Arduino, Python, MPU6050, Gyroscope, Sensor, Accelerometer
+
 [//]: #
    [LastMinuteEngineers]: <https://lastminuteengineers.com/mpu6050-accel-gyro-arduino-tutorial/>
    [Eduardo Sousa Sales Rodrigues]: <https://bdm.unb.br/bitstream/10483/23639/1/2018_EduardoSousaSalesRodrigues_tcc.pdf>
